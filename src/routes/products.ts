@@ -1,5 +1,7 @@
 import { Router } from "express";
 import prisma from "../prisma";
+import authMiddleware from "../../middleware/auth";
+import adminMiddleware from "../../middleware/admin";
 
 const router = Router();
 
@@ -25,7 +27,7 @@ router.get("/", async (req, res) => {
 });
 
 // POST /api/products
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const {
       name,
@@ -95,14 +97,22 @@ router.get("/:id", async (req, res) => {
 });
 
 // PUT /api/products/:id
-router.put("/:id", async (req, res) => {
+router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   try {
+    const { id } = req.params;
+
+    if (!id || Array.isArray(id)) {
+      return res.status(400).json({
+        error: "Invalid product ID",
+      });
+    }
+
     const { name, description, price, imageUrl, brand, category, stock } =
       req.body;
 
     const product = await prisma.product.update({
       where: {
-        id: req.params.id,
+        id: id,
       },
       data: {
         name,
@@ -118,6 +128,7 @@ router.put("/:id", async (req, res) => {
     res.json(product);
   } catch (error) {
     console.error(error);
+
     res.status(500).json({
       error: "Failed to update product",
     });
@@ -125,11 +136,19 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE /api/products/:id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   try {
+    const { id } = req.params;
+
+    if (!id || Array.isArray(id)) {
+      return res.status(400).json({
+        error: "Invalid product ID",
+      });
+    }
+
     const product = await prisma.product.update({
       where: {
-        id: req.params.id,
+        id: id,
       },
       data: {
         isActive: false,
@@ -142,6 +161,7 @@ router.delete("/:id", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+
     res.status(500).json({
       error: "Failed to delete product",
     });

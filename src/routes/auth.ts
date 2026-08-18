@@ -2,6 +2,7 @@ import { Router } from "express";
 import bcrypt from "bcryptjs";
 import prisma from "../prisma";
 import jwt from "jsonwebtoken";
+import authMiddleware from "../../middleware/auth";
 
 const router = Router();
 
@@ -78,6 +79,7 @@ router.post("/login", async (req, res) => {
       {
         userId: user.id,
         email: user.email,
+        role: user.role,
       },
       process.env.JWT_SECRET as string,
       {
@@ -92,6 +94,7 @@ router.post("/login", async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     });
   } catch (error) {
@@ -99,6 +102,39 @@ router.post("/login", async (req, res) => {
 
     res.status(500).json({
       error: "Failed to login",
+    });
+  }
+});
+
+// GET /api/auth/me
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const userId = (req as any).user.userId;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        error: "User not found",
+      });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Failed to get user",
     });
   }
 });
