@@ -146,6 +146,7 @@ The API follows a RESTful architecture and uses PostgreSQL with Prisma ORM for r
 
 The backend follows a modular REST API architecture.
 
+```text
 Client
   │
   ▼
@@ -158,9 +159,11 @@ Express Server
   ├── Prisma ORM
   ▼
 PostgreSQL Database
+```
 
 ### Request Flow
 
+```text
 Client Request
       │
       ▼
@@ -183,11 +186,13 @@ PostgreSQL
       │
       ▼
 Response
+```
 
 ---
 
 ## 📁 Project Structure
 
+```text
 shoe-shop-backend/
 │
 ├── middleware/
@@ -219,6 +224,7 @@ shoe-shop-backend/
 ├── package.json
 ├── tsconfig.json
 └── README.md
+```
 
 ---
 
@@ -226,21 +232,21 @@ shoe-shop-backend/
 
 ### 1. Clone the Repository
 
-\`\`\`bash
+```bash
 git clone https://github.com/Mdnayem097/shoe-shop-backend
-\`\`\`
+```
 
 ### 2. Navigate to the Project
 
-\`\`\`bash
+```bash
 cd shoe-shop-backend
-\`\`\`
+```
 
 ### 3. Install Dependencies
 
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ---
 
@@ -248,35 +254,35 @@ npm install
 
 Create a `.env` file in the root directory and add:
 
-\`\`\`env
+```env
 DATABASE_URL="your_postgresql_connection_string"
 JWT_SECRET="your_jwt_secret"
 PORT=5000
-\`\`\`
+```
 
 ---
 
 ## 🗄️ Database Setup
 
-\`\`\`bash
+```bash
 npx prisma generate
 npx prisma migrate dev
 npx prisma studio
-\`\`\`
+```
 
 ---
 
 ## ▶️ Running the Application
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 The server will start at:
 
-\`\`\`
+```
 http://localhost:5000
-\`\`\`
+```
 
 ---
 
@@ -284,9 +290,9 @@ http://localhost:5000
 
 Interactive Swagger docs are available at:
 
-\`\`\`
+```
 http://localhost:5000/api-docs
-\`\`\`
+```
 
 ---
 
