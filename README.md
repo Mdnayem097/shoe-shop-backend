@@ -40,8 +40,7 @@ The API follows a RESTful architecture and uses PostgreSQL with Prisma ORM for r
 - User login
 - JWT-based authentication
 - Password hashing with bcrypt
-- Role-based authorization
-- Customer and Admin roles
+- Role-based authorization (Customer and Admin roles)
 - Protected routes
 - Admin-only routes
 
@@ -86,13 +85,10 @@ The API follows a RESTful architecture and uses PostgreSQL with Prisma ORM for r
 ### 🛡️ Validation & Error Handling
 
 - Request validation using Zod
-- Product validation
-- Price validation
-- Stock validation
+- Product, price, and stock validation
 - Centralized error handling
 - Proper HTTP status codes
-- Authentication error handling
-- Authorization error handling
+- Authentication and authorization error handling
 
 ### 📚 API Documentation
 
@@ -104,9 +100,9 @@ The API follows a RESTful architecture and uses PostgreSQL with Prisma ORM for r
 
 ---
 
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-## Backend
+### Backend
 
 | Technology | Purpose |
 |------------|---------|
@@ -114,7 +110,7 @@ The API follows a RESTful architecture and uses PostgreSQL with Prisma ORM for r
 | Express.js | REST API framework |
 | TypeScript | Type-safe development |
 
-## Database
+### Database
 
 | Technology | Purpose |
 |------------|---------|
@@ -122,7 +118,7 @@ The API follows a RESTful architecture and uses PostgreSQL with Prisma ORM for r
 | Prisma ORM | Database ORM |
 | Neon PostgreSQL | Cloud PostgreSQL database |
 
-## Authentication & Security
+### Authentication & Security
 
 | Technology | Purpose |
 |------------|---------|
@@ -130,48 +126,44 @@ The API follows a RESTful architecture and uses PostgreSQL with Prisma ORM for r
 | bcrypt | Password hashing |
 | Role-based Middleware | Authorization |
 
-## Validation & Documentation
+### Validation & Documentation
 
 | Technology | Purpose |
 |------------|---------|
 | Zod | Request validation |
 | Swagger / OpenAPI | API documentation |
 
-## Development Tools
+### Development Tools
 
 - VS Code
-- Git
-- GitHub
+- Git & GitHub
 - Thunder Client
 - Prisma CLI
 
 ---
 
-# 🏗️ Architecture
+## 🏗️ Architecture
 
 The backend follows a modular REST API architecture.
 
-```text
+\`\`\`text
 Client
   │
   ▼
 Express Server
   │
   ├── Authentication Middleware
-  │
   ├── Admin Middleware
-  │
   ├── Validation
-  │
   ├── Routes
-  │
   ├── Prisma ORM
-  │
   ▼
 PostgreSQL Database
+\`\`\`
 
-# Request Flow
+### Request Flow
 
+\`\`\`text
 Client Request
       │
       ▼
@@ -194,9 +186,13 @@ PostgreSQL
       │
       ▼
 Response
+\`\`\`
 
-# 📁 Project Structure
+---
 
+## 📁 Project Structure
+
+\`\`\`text
 shoe-shop-backend/
 │
 ├── middleware/
@@ -228,40 +224,79 @@ shoe-shop-backend/
 ├── package.json
 ├── tsconfig.json
 └── README.md
+\`\`\`
 
-# 🚀 Getting Started
+---
 
-1. Clone the Repository
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+\`\`\`bash
 git clone https://github.com/Mdnayem097/shoe-shop-backend
+\`\`\`
 
-2. Navigate to the Project
+### 2. Navigate to the Project
+
+\`\`\`bash
 cd shoe-shop-backend
+\`\`\`
 
-3. Install Dependencies
+### 3. Install Dependencies
+
+\`\`\`bash
 npm install
+\`\`\`
 
-# 🔐 Environment Variables
+---
 
+## 🔐 Environment Variables
+
+Create a `.env` file in the root directory and add:
+
+\`\`\`env
 DATABASE_URL="your_postgresql_connection_string"
 JWT_SECRET="your_jwt_secret"
 PORT=5000
+\`\`\`
 
-# 🗄️ Database Setup
+---
 
+## 🗄️ Database Setup
+
+\`\`\`bash
 npx prisma generate
 npx prisma migrate dev
 npx prisma studio
+\`\`\`
 
-# ▶️ Running the Application
+---
 
+## ▶️ Running the Application
+
+\`\`\`bash
 npm run dev
+\`\`\`
+
+The server will start at:
+
+\`\`\`
 http://localhost:5000
+\`\`\`
 
-# 📚 API Documentation
+---
 
+## 📚 API Documentation
+
+Interactive Swagger docs are available at:
+
+\`\`\`
 http://localhost:5000/api-docs
+\`\`\`
 
-# 🛡️ Security
+---
+
+## 🛡️ Security
 
 - JWT-based authentication
 - Password hashing using bcrypt
@@ -274,9 +309,11 @@ http://localhost:5000/api-docs
 - Soft deletion for products
 - Stock validation during cart and checkout operations
 
-# 👨‍💻 Author
+---
 
-Md Nayem
+## 👨‍💻 Author
+
+**Md Nayem**
 
 Full Stack Developer focused on building modern web applications using:
 
@@ -288,8 +325,8 @@ Full Stack Developer focused on building modern web applications using:
 - Express.js
 - PostgreSQL
 
-## Connect With Me
+### Connect With Me
 
-- GitHub: https://github.com/Mdnayem097
-- LinkedIn: https://www.linkedin.com/in/md-nayem-swe
-- Portfolio: https://md-nayem-portfolio.vercel.app
+- GitHub: [github.com/Mdnayem097](https://github.com/Mdnayem097)
+- LinkedIn: [linkedin.com/in/md-nayem-swe](https://www.linkedin.com/in/md-nayem-swe)
+- Portfolio: [md-nayem-portfolio.vercel.app](https://md-nayem-portfolio.vercel.app)
