@@ -10,6 +10,7 @@ import cartRoutes from "./routes/cart";
 import orderRoutes from "./routes/orders";
 import adminOrderRoutes from "./routes/adminOrders";
 import errorMiddleware from "../middleware/error";
+import { swaggerDocument, swaggerUi } from "./swagger";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "Shoe shop API is running" });
 });
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
