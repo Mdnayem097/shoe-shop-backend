@@ -7,6 +7,7 @@ import "dotenv/config";
 import productRoutes from "./routes/products";
 import authRoutes from "./routes/auth";
 import cartRoutes from "./routes/cart";
+import orderRoutes from "./routes/orders";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
