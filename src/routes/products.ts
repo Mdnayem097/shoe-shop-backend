@@ -36,7 +36,6 @@ router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
       imageUrl,
       brand,
       category,
-      stock,
       sizes,
     } = req.body;
 
@@ -48,7 +47,6 @@ router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
         imageUrl,
         brand,
         category,
-        stock: stock || 0,
 
         sizes: {
           create: sizes || [],
@@ -107,7 +105,7 @@ router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
       });
     }
 
-    const { name, description, price, imageUrl, brand, category, stock } =
+    const { name, description, price, imageUrl, brand, category, } =
       req.body;
 
     const product = await prisma.product.update({
@@ -121,7 +119,6 @@ router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
         imageUrl,
         brand,
         category,
-        stock,
       },
     });
 

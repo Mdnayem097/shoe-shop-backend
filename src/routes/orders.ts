@@ -62,32 +62,55 @@ router.post("/", authMiddleware, async (req, res) => {
       totalAmount += Number(item.product.price) * item.quantity;
     }
 
-    const order = await prisma.order.create({
-      data: {
-        userId: userId,
-        totalAmount: totalAmount,
-        shippingName: shippingName,
-        shippingPhone: shippingPhone,
-        shippingAddress: shippingAddress,
+    const order = await prisma.$transaction(async (tx) => {
+      const newOrder = await tx.order.create({
+        data: {
+          userId: userId,
+          totalAmount: totalAmount,
+          shippingName: shippingName,
+          shippingPhone: shippingPhone,
+          shippingAddress: shippingAddress,
 
-        items: {
-          create: cart.items.map((item) => ({
-            productId: item.productId,
-            size: item.size,
-            quantity: item.quantity,
-            priceAtPurchase: item.product.price,
-          })),
+          items: {
+            create: cart.items.map((item) => ({
+              productId: item.productId,
+              size: item.size,
+              quantity: item.quantity,
+              priceAtPurchase: item.product.price,
+            })),
+          },
         },
-      },
-      include: {
-        items: true,
-      },
-    });
+        include: {
+          items: true,
+        },
+      });
 
-    await prisma.cartItem.deleteMany({
-      where: {
-        cartId: cart.id,
-      },
+      for (const item of cart.items) {
+        const productSize = item.product.sizes.find(
+          (size) => size.size === item.size,
+        );
+
+        if (productSize) {
+          await tx.productSize.update({
+            where: {
+              id: productSize.id,
+            },
+            data: {
+              stock: {
+                decrement: item.quantity,
+              },
+            },
+          });
+        }
+      }
+
+      await tx.cartItem.deleteMany({
+        where: {
+          cartId: cart.id,
+        },
+      });
+
+      return newOrder;
     });
 
     res.status(201).json({
