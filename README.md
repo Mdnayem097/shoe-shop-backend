@@ -146,7 +146,6 @@ The API follows a RESTful architecture and uses PostgreSQL with Prisma ORM for r
 
 The backend follows a modular REST API architecture.
 
-\`\`\`text
 Client
   │
   ▼
@@ -159,11 +158,9 @@ Express Server
   ├── Prisma ORM
   ▼
 PostgreSQL Database
-\`\`\`
 
 ### Request Flow
 
-\`\`\`text
 Client Request
       │
       ▼
@@ -186,13 +183,11 @@ PostgreSQL
       │
       ▼
 Response
-\`\`\`
 
 ---
 
 ## 📁 Project Structure
 
-\`\`\`text
 shoe-shop-backend/
 │
 ├── middleware/
@@ -224,7 +219,6 @@ shoe-shop-backend/
 ├── package.json
 ├── tsconfig.json
 └── README.md
-\`\`\`
 
 ---
 
