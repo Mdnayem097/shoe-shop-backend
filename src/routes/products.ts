@@ -2,6 +2,10 @@ import { Router } from "express";
 import prisma from "../prisma";
 import authMiddleware from "../../middleware/auth";
 import adminMiddleware from "../../middleware/admin";
+import {
+  productSchema,
+  updateProductSchema,
+} from "../validations/product.validation";
 
 const router = Router();
 
@@ -29,15 +33,16 @@ router.get("/", async (req, res) => {
 // POST /api/products
 router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   try {
-    const {
-      name,
-      description,
-      price,
-      imageUrl,
-      brand,
-      category,
-      sizes,
-    } = req.body;
+    const result = productSchema.safeParse(req.body);
+
+    if (!result.success) {
+      return res.status(400).json({
+        error: result.error.issues[0].message,
+      });
+    }
+
+    const { name, description, price, imageUrl, brand, category, sizes } =
+      result.data;
 
     const product = await prisma.product.create({
       data: {
@@ -105,8 +110,15 @@ router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
       });
     }
 
-    const { name, description, price, imageUrl, brand, category, } =
-      req.body;
+    const result = updateProductSchema.safeParse(req.body);
+
+    if (!result.success) {
+      return res.status(400).json({
+        error: result.error.issues[0].message,
+      });
+    }
+
+    const { name, description, price, imageUrl, brand, category } = result.data;
 
     const product = await prisma.product.update({
       where: {
