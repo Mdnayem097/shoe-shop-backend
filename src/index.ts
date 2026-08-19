@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth";
 import cartRoutes from "./routes/cart";
 import orderRoutes from "./routes/orders";
 import adminOrderRoutes from "./routes/adminOrders";
+import errorMiddleware from "../middleware/error";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -25,6 +26,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/admin/orders", adminOrderRoutes);
+app.use(errorMiddleware);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
