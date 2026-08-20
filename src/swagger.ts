@@ -488,6 +488,58 @@ const swaggerDocument = {
     },
 
     "/api/cart/items/{id}": {
+      patch: {
+        tags: ["Cart"],
+        summary: "Update cart item quantity",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["quantity"],
+                properties: {
+                  quantity: {
+                    type: "integer",
+                    minimum: 1,
+                    example: 3,
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Cart item quantity updated successfully",
+          },
+          "400": {
+            description: "Invalid quantity or insufficient stock",
+          },
+          "401": {
+            description: "Authentication required",
+          },
+          "404": {
+            description: "Cart item not found",
+          },
+        },
+      },
+
       delete: {
         tags: ["Cart"],
         summary: "Remove item from cart",
